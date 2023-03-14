@@ -1,5 +1,6 @@
 import './style.css';
 import graphQLFetch from './graphql.js';
+import train from './train.jpg';
 
 function TravellerRow(props) {
   const traveller = props.traveller;
@@ -197,6 +198,7 @@ class TicketToRide extends React.Component {
     return (
       <div>
         <h1>Ticket To Ride</h1>
+	<img src={train} />
 	<div>
         <button onClick={()=>this.setSelector(1)}>Homepage</button>
         <button onClick={()=>this.setSelector(2)}>Display Travellers</button>

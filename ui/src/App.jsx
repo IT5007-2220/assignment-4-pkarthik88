@@ -1,4 +1,4 @@
-//import './style.css';
+import './style.css';
 import graphQLFetch from './graphql.js';
 
 function TravellerRow(props) {

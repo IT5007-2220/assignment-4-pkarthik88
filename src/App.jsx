@@ -7,7 +7,7 @@ function jsonDateReviver(key, value) {
 
 async function graphQLFetch(query, variables = {}) {
   try {
-    const response = await fetch('/graphql', {
+    const response = await fetch('http://localhost:3000/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({ query, variables })
@@ -123,6 +123,29 @@ class Delete extends React.Component {
  *   right parameters.
  * - Make sure to invalidate/clear the form input fileds in the UI during cleanup.*/
 
+class Blacklist extends React.Component {
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    const form = document.forms.blacklistTraveller;
+    const passenger = form.blacklistname.value;
+    this.props.blacklistTraveller(passenger);
+    form.blacklistname.value = "";
+  }
+
+  render() {
+    return (
+      <form name="blacklistTraveller" onSubmit={this.handleSubmit}>
+        <input type="text" name="blacklistname" placeholder="Name" />
+        <button>Blacklist</button>
+      </form>
+    );
+  }
+}
+
 
 /*End of Q4*/
 
@@ -190,8 +213,13 @@ class TicketToRide extends React.Component {
      * - Make a call to graphQLFetch to execute the query.
      * - graphQLFetch accepts two parameters: query and {variable}  
      * - This GraphQL API call does not return anything. */
+    console.log("Pending code to Blacklist", passenger); 
+    const query =`mutation mymutation($passenger: String!){
+	      blacklistTraveller(travellername: $passenger)
+    }`; 
+    const response = await graphQLFetch(query, {passenger});
+    console.log("Response from server", response);
     
-
     /*End of Q4*/
   }
   render() {

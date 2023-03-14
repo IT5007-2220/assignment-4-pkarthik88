@@ -16,8 +16,8 @@ db.blacklist.remove({});
  * Create a list of Travellers with necessary fields. 
  * Enter the list of travellers into the DB collection named 'travellers'.
  * */
-
-
+initialTravellers=[{name: 'xyz'},{name: 'abc'}]
+db.travellers.insertMany(initialTravellers);
 /*Q1 code ends here*/
 
 

@@ -22,5 +22,6 @@ type Query {
 type Mutation {
 	addTraveller(ticket: InputTicket!): Ticket!
 	deleteTraveller(travellername: String!): Boolean!
+	blacklistTraveller(travellername: String!): Boolean
 }
 

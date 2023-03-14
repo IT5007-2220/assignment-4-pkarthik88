@@ -79,10 +79,25 @@ async function deleteTraveller()
 /*Q4: Placeholder for blacklistTraveller() resolver.
  * This function should accept a traveller name and add them to a collection named blacklist.
  * */
-
+async function blacklistTraveller(_, {travellername})
+{
+	console.log("blacklistTraveller has been called");
+	var ack = await db.collection('blacklist').insertOne({name: travellername});
+	console.log(ack.insertedCount);
+	return ack.insertedCount==1;
+}
 
 
 /*End of Q4*/
+
+
+async function countTravellers()
+{
+	console.log("countTravellers() has been called");
+	var retval= await db.collection('travellers').count();
+	console.log(retval);
+	return retval;
+}
 
 const resolvers = {
   Query: {
@@ -91,6 +106,7 @@ const resolvers = {
   Mutation: {
     addTraveller,
     deleteTraveller,
+    blacklistTraveller,
     /*Q4. Make an entry for blacklistTraveller resolver here*/
   },
   GraphQLDate,

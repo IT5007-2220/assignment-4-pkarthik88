@@ -3,10 +3,8 @@ const express = require('express');
 const { ApolloServer, UserInputError } = require('apollo-server-express');
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
-const { MongoClient } = require('mongodb');
-
-let db;//Variable that points to the real DB.
-
+const {connectToDb} = require('./db.js');
+let db;
 
 //Resolver1: Query
 async function listTravellers()
@@ -124,17 +122,10 @@ const server = new ApolloServer({
 });
 server.applyMiddleware({ app, path: '/graphql' });
 
-async function connectToDb() {
-	  const url = 'mongodb://localhost/tickettoride';
-	  const client = new MongoClient(url, { useNewUrlParser: true });
-	  await client.connect();
-	  console.log('Connected to Ticket To Ride MongoDB at', url);
-	  db = client.db();
-}
 
 (async function () {
   try {
-    await connectToDb();
+    db = await connectToDb();
     app.listen(8000, function () {
       console.log('App started on port 8000');
     });
